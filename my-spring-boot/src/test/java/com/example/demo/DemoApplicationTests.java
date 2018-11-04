@@ -94,8 +94,8 @@ public class DemoApplicationTests {
     @Test
     public void testTransaction(){
         AyUser ayUser=new AyUser();
-        ayUser.setId("3");
-        ayUser.setName("t3");
+        ayUser.setId("4");
+        ayUser.setName("t4");
         ayUser.setPassword("123");
         ayUserService.save(ayUser);
     }
@@ -113,4 +113,37 @@ public class DemoApplicationTests {
         System.out.println(name);
         redisTemplate.delete("name");
     }
+
+    @Test
+    public void testFindById(){
+        Long redisUserSize=0L;
+        AyUser ayUser=ayUserService.findById("5");
+        redisUserSize=redisTemplate.opsForList().size("ALL_USER_LIST");
+        System.out.println(redisUserSize);
+    }
+
+    @Test
+    public void testSave(){
+        Long redisUserSize=0L;
+        AyUser ayUser=ayUserService.findById("5");
+        redisUserSize=redisTemplate.opsForList().size("ALL_USER_LIST");
+        System.out.println(redisUserSize);
+    }
+
+    @Test
+    public void testdelete(){
+        Long redisUserSize=0L;
+        redisUserSize=redisTemplate.opsForList().size("ALL_USER_LIST");
+        System.out.println(redisUserSize);
+        AyUser ayUser=new AyUser();
+        ayUser.setId("5");
+        ayUser.setName("t5");
+        ayUser.setPassword("123");
+        ayUserService.save(ayUser);
+
+        redisUserSize=redisTemplate.opsForList().size("ALL_USER_LIST");
+        System.out.println(redisUserSize);
+    }
 }
+
+
