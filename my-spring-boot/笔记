@@ -1,0 +1,79 @@
+第5章
+spring boot开启事务很简单，只需要一个注解@Transaction即可，springboot 已经默认对jpa jdbc mybatis 开启事务了，引入
+它们的依赖时就默认开启了
+
+第6章 。。。
+
+第7章redis
+单线程高性能key-value型数据库 读写性能优异
+支持数据类型 string list set zset(有序集合) hash
+增删查改：
+string------>(key为name value 为'ay')
+==增 改
+set name 'ay'
+==查
+get name
+==删
+del name
+==是否存在
+exists name
+
+list集合------>
+==头部增
+lpush user_list 'ay' 'al'
+==尾部增
+rpush user_list 'love'
+
+==更新
+lset user_list 0 'wish'(0:第一个元素；'wish':value)
+
+==删除
+lrem user_list 0 'wish'(0:第一个元素；'wish':value)
+
+==查全部
+lrange user_list 0 -1(注：0代表第一个元素，-1指的是最后一个元素)
+
+
+set集合------------>
+set集合没有顺序，所以无法判断添加到那个位置
+添加一个元素，如果已存在，返回0，但不会报错
+
+------添加
+sadd user_set "ay" "al"
+------查询
+smembers user_list
+------删除  返回1表示成功，0表示失败
+srem user_set 'love'
+
+hash集合------------->
+-------清除数据库
+flushdb
+
+-------创建 添加 更新
+hset user_hset "11" "22"(key:11 value:22)
+-------查询长度
+hlen user_hset
+-------查询所有key
+hkeys user_hset
+-------查询所有值
+hvals user_hset
+------查询某个key的值
+hget user_hset "11"
+------获取所有key和值
+hgetall user_hset
+------删除key 和值
+hdel user_hset 11
+
+sortedSet集合-------------->
+------添加
+zadd user_zset 1 "ay" (分数：1  元素：ay)
+------按分数由小到大排序
+zrange user_zset 0 -1
+------按分数由大到小排序
+zrevrange user_zset 0 -1
+------查询分数值
+zscore user_zset "ay"
+
+spring boot支持多种类型的缓存，再不添加任何配置的情况下，springboot默认使用SimpleCacheConfiguration
+
+
